@@ -1,0 +1,238 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5 ">
+
+<head>
+	<style>
+		.header__navbar-item {
+			margin: 0 8px;
+			position: relative;
+			min-height: 26px;
+		}
+
+		.header___navbar-user {
+			display: flex;
+			justify-items: center;
+			position: relative;
+		}
+
+		.header__navbar-user:hover .header__navbar-user-menu {
+			display: block;
+		}
+
+		.header__navbar-user-img {
+			width: 22px;
+			height: 22px;
+			border-radius: 50%;
+			border: 1px solid rgba(0, 0, 0, 0.1);
+		}
+
+		.header__navbar-user-name {
+			/*font: size 1.4em;*/
+			font-weight: 600;
+			text-transform: uppercase;
+		}
+
+		.header__navbar-user-menu {
+			position: absolute;
+			z-index: 100;
+			padding-left: 0;
+			width: 180px;
+			top: calc(100% + 10px);
+			right: -11px;
+			background-color: white;
+			border-radius: 2px;
+			list-style: none;
+			box-shadow: 0 1px 3.125rem rgba(0, 0, 0, 0.2);
+			display: none;
+			transform-origin: calc(100% - 32px) top;
+			animation: headerNotifyGrowth ease-in 0.2s;
+			will-change: opacity, transform;
+		}
+
+		.header__navbar-user-menu::before {
+			content: "";
+			border-width: 18px 22px;
+			border-style: solid;
+			border-color: transparent transparent white transparent;
+			position: absolute;
+			right: 0px;
+			top: -25px;
+		}
+
+		.header__navbar-user-menu::after {
+			content: "";
+			display: block;
+			position: absolute;
+			top: -12px;
+			right: 0;
+			width: 100%;
+			height: 13px;
+		}
+
+		.header__navbar_user-item--separate {
+			border-top: 1px solid rgba(0, 0, 0, 0.05);
+		}
+
+		.header__navbar_user-item a {
+			text-decoration: none;
+			color: #000000;
+			font-size: 1.4rem;
+			padding: 10px 16px;
+			display: block;
+		}
+
+		.header__navbar_user-item a:first-child {
+			border-top-left-radius: 2px;
+			border-top-right-radius: 2px;
+		}
+
+		.header__navbar_user-item a:last-child {
+			border-bottom-left-radius: 2px;
+			border-bottom-right-radius: 2px;
+		}
+
+		.header__navbar_user-item a:hover {
+			background-color: #fafafa;
+		}
+	</style>
+</head>
+<header class="init">
+
+	<!-- subnav -->
+	<div class="container-fluid m-5-hor">
+		<div class="row">
+			<div class="subnav">
+
+				<div class="col-md-6">
+					<div class="left">
+						<div class="social-icons-subnav hidden-sm hidden-xs">
+							<div>Liên hệ : +(84) 352 363 014</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="right">
+						<div id="sub-icon" class="social-icons-subnav">
+							<a href="https://www.facebook.com/nicetravelcompany/"><span class="ti-facebook"></span></a>
+							<a href="#"><span class="ti-dribbble"></span></a> <a href="#"><span
+								class="ti-twitter"></span></a> <a href="#"><span class="ti-instagram"></span></a> <a
+								href="#"><span class="ti-linkedin"></span></a>
+						</div>
+						<th:block th:unless="${#request.remoteUser}">
+							<div class="social-icons-subnav">
+								<a data-toggle="modal" href="/login" data-target=""><span class="ti-lock"></span>Đăng
+									nhập</a>
+							</div>
+						</th:block>
+						<th:block th:if="${#request.remoteUser}">
+							<b class=" header__navbar-item header__navbar-user">
+<!--								<img th:src="@{${#request.remoteUser}}" alt="" class="header__navbar-user-img">-->
+								<!--								<div sec:authorize="isAuthenticated()" class="text-center p-3">-->
+								<!--									<form th:action="@{/logout}" method="post">-->
+								<!--										Welcome <b><span sec:authentication="name">Username</span></b>-->
+								<!--										&nbsp;-->
+								<!--										<input type="submit" value="Logout" />-->
+								<!--									</form>-->
+								<!--								</div>-->
+
+								<span sec:authorize="isAuthenticated()" class="header__navbar-user-name">
+									<span sec:authentication="name">Username</span>
+								</span>
+								<ul class="header__navbar-user-menu">
+<!--									Tài khoản của tôi-->
+									<li th:if="${#request.isUserInRole('ADMIN')}" class="header__navbar_user-item">
+										<a th:href="@{/admin/information-admin}">Tài khoản của tôi</a>
+									</li>
+									<li th:if="${#request.isUserInRole('STAFF')}" class="header__navbar_user-item">
+										<a th:href="@{/staff/information-staff}">Tài khoản của tôi</a>
+									</li>
+									<li th:if="${#request.isUserInRole('USER')}" class="header__navbar_user-item">
+										<a th:href="@{/customer/information-customer}">Tài khoản của tôi</a>
+									</li>
+
+<!--									Chỉnh sủa tài khoản-->
+									<li th:if="${#request.isUserInRole('ADMIN')}" class="header__navbar_user-item">
+										<a th:href="@{/admin/edit-information-admin}">Chỉnh sửa tài khoản</a>
+									</li>
+									<li th:if="${#request.isUserInRole('STAFF')}"
+										class="header__navbar_user-item">
+										<a th:href="@{/staff/edit-information-staff}">Chỉnh sửa tài khoản</a>
+									</li>
+									<li th:if="${#request.isUserInRole('USER')}"
+										class="header__navbar_user-item">
+										<a th:href="@{/customer/edit-information-customer}">Chỉnh sửa tài khoản</a>
+									</li>
+									<li th:if="${#request.isUserInRole('USER')}" class="header__navbar_user-item">
+										<a th:href="@{/customer/tour-da-dat}">Tour đã đặt</a>
+									</li>
+									<li th:if="${#request.isUserInRole('ADMIN')}"
+										class="header__navbar_user-item">
+										<a th:href="@{/admin}">Quản lý Admin</a>
+									</li>
+									<li th:if="${#request.isUserInRole('STAFF')}"
+										class="header__navbar_user-item">
+										<a th:href="@{/staff}">Quản lý Staff</a>
+									</li>
+									<li class="header__navbar_user-item header__navbar_user-item--separate">
+										<a th:href="@{/logoff}">Đăng xuất</a>
+									</li>
+								</ul>
+							</b>
+
+						</th:block>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- subnav end -->
+
+	<!-- nav -->
+	<div class="navbar-default-white navbar-fixed-top" style="z-index: 1;">
+		<div class="container-fluid m-5-hor">
+			<div class="row">
+
+				<!-- menu mobile display -->
+				<button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+					<span class="icon icon-bar"></span> <span class="icon icon-bar"></span>
+					<span class="icon icon-bar"></span>
+				</button>
+
+				<!-- logo -->
+				<a class="navbar-brand white" th:href="@{/}"> <img class="white" alt="logo"
+																   src="/assets/img/logoNiceTravel.png">
+					<img class="black" alt="logo" src="/assets/img/logoNiceTravel.png">
+				</a>
+				<!-- logo end -->
+
+				<!-- mainmenu start -->
+				<div class="white menu-init" id="main-menu">
+					<nav id="menu-center">
+						<ul>
+							<li><a class="actived" href="/">Trang chủ<i class="fa fa-angle-down"></i></a>
+								<ul>
+									<li><a href="">Giới thiệu</a></li>
+								</ul>
+							</li>
+							<li><a href="">Thông tin</a></li>
+							<li><a href="/travel/tour">Du lịch <i class="fa fa-angle-down"></i></a>
+								<ul>
+									<li th:each="c:${types}"><a th:href="@{|/travel/tour?tid=${c.id}|}">Du lịch
+										[[${c.type}]]</a></li>
+								</ul>
+							</li>
+							<li><a href="">Liên hệ</a></li>
+						</ul>
+					</nav>
+				</div>
+				<!-- mainmenu end -->
+
+			</div>
+		</div>
+		<!-- container -->
+	</div>
+	<!-- nav end -->
+</header>

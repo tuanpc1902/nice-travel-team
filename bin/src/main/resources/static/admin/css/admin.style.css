@@ -1,0 +1,47 @@
+.w-90 {
+    width: 90%;
+    margin: 0 auto;
+    padding: 2rem 2rem;
+}
+
+/* chỉnh sửa tour du lịch */
+.chinh-sua-tour {
+    min-height: 35rem;
+}
+
+/* phần input */
+.chinh-sua-tour .left {
+}
+
+/* phần input hình */
+.chinh-sua-tour .right {
+    width: 100%;
+}
+.chinh-sua-tour .right .right-image {
+    width: 100%;
+    min-height: 18.5rem;
+    padding: 2rem 2rem;
+    background-color: rgba(95, 158, 160, 0.432);
+    text-align: center;
+}
+.chinh-sua-tour .right .right-image img {
+    height: 16rem;
+    margin-bottom: 1rem;
+}
+
+.chinh-sua-tour  .right-button {
+    width: 100%;
+    text-align: center;
+    margin-top: 2rem;
+}
+.chinh-sua-tour  .right-button .btn {
+    width: 9rem;
+}
+/* end chỉnh sửa tour du lịch */
+
+/* search date thống kê 6 tháng gần nhất */
+.admin-search-date-1 {
+    width: 70%;
+    padding: 20px 20px;
+}
+/* end search date thống kê 6 tháng gần nhất */

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="dynamic(head,main)" lang="en">
+
+
+<head th:replace="${head}">
+
+<body ng-app="booking-app" ng-controller="booking-ctrl">
+  <!-- icon noel dây treo -->
+    <img src="/assets/img/icon-noel/icon-noel-daytreo.png" alt="" class="icon-noel-daytreo">
+	<!-- preloader -->
+    <div class="bg-preloader-white"></div>
+    <div class="preloader-white">
+        <div class="mainpreloader">
+            <span></span>
+        </div>
+    </div>
+    <!-- preloader end -->
+    
+	<div class="content-wrapper">
+		<!-- header start -->
+		<div th:replace="/layout/_header2.html"></div>
+		<!-- header end -->
+		
+		<!-- <main start> -->
+		<div th:replace="${main}"></div>
+		<!-- </main end> -->
+
+		<!-- Footer Section Begin -->
+		<div th:replace="/layout/_footer2.html"></div>
+		<!-- Footer Section End -->
+
+		<!-- scroll up -->
+	    <a href="#" class="scroll-up" id="scroll-up">
+	        <i class="ri-arrow-up-line scrollup-icon"></i>
+	    </a>
+
+	 <!-- ------------------------------ js ------------------------------ -->
+    <!-- jquery js -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+    <!-- slick sdn js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+    <!-- scroll reveal -->
+    <script src="/assets/js/scrollreveal.min.js"></script>
+
+    <!-- main js -->
+    <script src="/assets/js/main.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <!-- booking JS -->
+	<script src="/assets/js/booking-app.js"></script>
+	
+	 <script>
+        $(function () {
+            $("#datepicker").datepicker({
+                dateFormat: 'dd/mm/yy'
+            });
+        });
+    </script>
+</body>
+
+</html>
